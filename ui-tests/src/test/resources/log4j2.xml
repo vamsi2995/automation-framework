@@ -1,0 +1,13 @@
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console">
+            <PatternLayout pattern="%d [%t] %-5level %logger - %msg%n"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>

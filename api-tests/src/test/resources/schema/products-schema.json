@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "properties": {
+    "responseCode": { "type": "number" },
+    "products": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number" },
+          "name": { "type": "string" },
+          "price": { "type": "string" },
+          "brand": { "type": "string" }
+        },
+        "required": ["id", "name", "price"]
+      }
+    }
+  },
+  "required": ["responseCode", "products"]
+}
