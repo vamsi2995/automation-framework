@@ -15,7 +15,10 @@ public class ScreenshotUtils {
                 .getScreenshotAs(OutputType.FILE);
 
         try {
-            FileUtils.copyFile(src, new File("screenshots/" + name + ".png"));
+            String fileName = System.currentTimeMillis() + "_" + name + ".png";
+
+            FileUtils.copyFile(src, new File("screenshots/" + fileName));
+
         } catch (Exception e) {
             e.printStackTrace();
         }

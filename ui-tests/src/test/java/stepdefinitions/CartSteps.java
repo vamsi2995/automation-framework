@@ -44,7 +44,8 @@ public class CartSteps {
     public void add_product() {
 
         productsPage.addFirstProductToCart();
-        DriverFactory.getDriver().get(ConfigReader.get("url") + "/view_cart");
+        //DriverFactory.getDriver().get(ConfigReader.get("url") + "/view_cart");
+        productsPage.clickViewCart();
     }
 
     @Then("Product should be added to cart")

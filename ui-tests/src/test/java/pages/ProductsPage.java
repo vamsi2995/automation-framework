@@ -1,5 +1,4 @@
 
-
 package pages;
 
 import org.openqa.selenium.By;
@@ -43,6 +42,11 @@ public class ProductsPage {
     }
 
     public void clickViewCart() {
-        wait.waitForElement(viewCart).click();
+
+        AdsHandler.removeAds(driver);
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].click();",
+                        wait.waitForElement(viewCart));
     }
 }
