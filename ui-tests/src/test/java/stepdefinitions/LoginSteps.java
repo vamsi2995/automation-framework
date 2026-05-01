@@ -1,5 +1,6 @@
 package stepdefinitions;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
@@ -12,7 +13,7 @@ import pages.LoginPage;
 import utils.ConfigReader;
 
 public class LoginSteps {
-
+    private static final Logger logger = LogManager.getLogger(LoginSteps.class);
     LoginPage loginPage;
 
     @Given("User is on login page")
@@ -20,7 +21,7 @@ public class LoginSteps {
 
         WebDriver driver = DriverFactory.getDriver();
         driver.get(ConfigReader.get("url") + "/login");
-
+        logger.info("User navigated to login page");
         loginPage = new LoginPage(driver);
     }
 
@@ -29,11 +30,14 @@ public class LoginSteps {
 
         loginPage.enterEmail(ConfigReader.get("email"));
         loginPage.enterPassword(ConfigReader.get("password"));
+        logger.info("Entered valid login credentials");
     }
 
     @When("Click login")
     public void click_login() {
         loginPage.clickLogin();
+        logger.info("Clicked login button");
+
     }
 
     @When("User enters invalid credentials")
@@ -41,15 +45,18 @@ public class LoginSteps {
 
         loginPage.enterEmail(ConfigReader.get("email"));
         loginPage.enterPassword(ConfigReader.get("wrong_password"));
+        logger.info("Entered invalid login credentials");
     }
 
     @Then("Error message should be displayed")
     public void validate_error_message() {
         Assert.assertTrue(loginPage.isErrorDisplayed());
+        logger.info("Error message displayed as expected");
     }
 
     @Then("User should login successfully")
     public void validate_login() {
         Assert.assertTrue(loginPage.isLoginSuccessful());
+        logger.info("User login successful");
     }
 }

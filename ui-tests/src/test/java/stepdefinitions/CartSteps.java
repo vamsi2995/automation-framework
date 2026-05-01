@@ -1,5 +1,6 @@
 package stepdefinitions;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
@@ -19,18 +20,19 @@ public class CartSteps {
     LoginPage loginPage;
     ProductsPage productsPage;
     CartPage cartPage;
-
+    private static final Logger logger = LogManager.getLogger(CartSteps.class);
     @Given("User is logged in")
     public void user_is_logged_in() {
 
         WebDriver driver = DriverFactory.getDriver();
         driver.get(ConfigReader.get("url") + "/login");
-
+        logger.info("Navigating to login page");
         loginPage = new LoginPage(driver);
 
         loginPage.enterEmail(ConfigReader.get("email"));
         loginPage.enterPassword(ConfigReader.get("password"));
         loginPage.clickLogin();
+        logger.info("Logged in successfully");
     }
 
     @When("User navigates to products page")
@@ -38,6 +40,7 @@ public class CartSteps {
 
         productsPage = new ProductsPage(DriverFactory.getDriver());
         productsPage.goToProducts();
+        logger.info("Navigated to product page");
     }
 
     @When("User adds product to cart")
@@ -45,6 +48,7 @@ public class CartSteps {
 
         productsPage.addFirstProductToCart();
         //DriverFactory.getDriver().get(ConfigReader.get("url") + "/view_cart");
+        logger.info("Added the product to cart");
         productsPage.clickViewCart();
     }
 
@@ -53,6 +57,7 @@ public class CartSteps {
 
         cartPage = new CartPage(DriverFactory.getDriver());
         Assert.assertTrue(cartPage.isProductDisplayed());
+        logger.info("Product successfully verified in cart");
     }
 
 
@@ -63,6 +68,7 @@ public class CartSteps {
         driver.get(ConfigReader.get("url") + "/view_cart");
 
         cartPage = new CartPage(driver);
+        logger.info("User is on cart page");
     }
 
     @When("User removes product")
@@ -72,10 +78,12 @@ public class CartSteps {
 
         cartPage = new CartPage(DriverFactory.getDriver());
         cartPage.removeProduct();
+        logger.info("Product removed from cart");
     }
 
     @Then("Cart should be empty")
     public void validate_empty_cart() {
         Assert.assertTrue(cartPage.isCartEmpty());
+        logger.info("Cart is empty - validation successful");
     }
 }
