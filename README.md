@@ -32,6 +32,7 @@ This project is a hybrid automation framework developed for UI and API testing u
 * UI test scenarios covering login, navigation, and user workflows
 * Cross-browser support for UI testing
 * Reusable UI components and step definitions
+* Logging using Log4j2
 * API chaining (Create → Update → Delete)
 * Negative testing for both UI and API
 * JSON schema validation for API responses
