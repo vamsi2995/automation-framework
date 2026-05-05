@@ -1,61 +1,70 @@
 package client;
 
 import io.restassured.response.Response;
-import utils.ConfigReader;
-
-import static io.restassured.RestAssured.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 
-public class ProductClient {
+public class ProductClient extends BaseClient {
+
+    private static final Logger logger = LogManager.getLogger(ProductClient.class);
 
     public Response getAllProducts() {
 
-        String baseUrl = ConfigReader.get("api_base_url");
+        logger.info("Calling GET /api/productsList");
 
-        return given()
-                .baseUri(baseUrl)
+        Response response = request()
                 .when()
                 .get("/api/productsList")
                 .then()
                 .extract()
                 .response();
+
+        logger.info("Response: " + response.asString());
+
+        return response;
     }
 
     public Response searchProduct(Map<String, String> body) {
 
-        String baseUrl = ConfigReader.get("api_base_url");
+        logger.info("Calling POST /api/searchProduct with body: " + body);
 
-        return given()
-                .baseUri(baseUrl)
+        Response response = request()
                 .formParams(body)
                 .when()
                 .post("/api/searchProduct")
                 .then()
                 .extract()
                 .response();
+
+        logger.info("Response: " + response.asString());
+
+        return response;
     }
 
     public Response createUser(Map<String, String> body) {
 
-        String baseUrl = ConfigReader.get("api_base_url");
+        logger.info("Calling POST /api/createAccount with body: " + body);
 
-        return given()
-                .baseUri(baseUrl)
+        Response response = request()
                 .formParams(body)
                 .when()
                 .post("/api/createAccount")
                 .then()
                 .extract()
                 .response();
+
+        logger.info("Response: " + response.asString());
+
+        return response;
     }
 
     public Response deleteUser(String email, String password) {
 
-        String baseUrl = ConfigReader.get("api_base_url");
+        logger.info("Calling DELETE /api/deleteAccount for email: " + email);
 
-        return given()
-                .baseUri(baseUrl)
+        Response response = request()
                 .formParam("email", email)
                 .formParam("password", password)
                 .when()
@@ -63,28 +72,34 @@ public class ProductClient {
                 .then()
                 .extract()
                 .response();
+
+        logger.info("Response: " + response.asString());
+
+        return response;
     }
 
     public Response updateUser(Map<String, String> body) {
 
-        String baseUrl = ConfigReader.get("api_base_url");
+        logger.info("Calling PUT /api/updateAccount with body: " + body);
 
-        return given()
-                .baseUri(baseUrl)
+        Response response = request()
                 .formParams(body)
                 .when()
                 .put("/api/updateAccount")
                 .then()
                 .extract()
                 .response();
+
+        logger.info("Response: " + response.asString());
+
+        return response;
     }
 
     public Response loginUser(String email, String password) {
 
-        String baseUrl = ConfigReader.get("api_base_url");
+        logger.info("Calling POST /api/verifyLogin for email: " + email);
 
-        return given()
-                .baseUri(baseUrl)
+        Response response = request()
                 .formParam("email", email)
                 .formParam("password", password)
                 .when()
@@ -92,5 +107,9 @@ public class ProductClient {
                 .then()
                 .extract()
                 .response();
+
+        logger.info("Response: " + response.asString());
+
+        return response;
     }
 }

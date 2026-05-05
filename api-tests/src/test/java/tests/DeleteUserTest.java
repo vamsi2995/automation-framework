@@ -1,11 +1,10 @@
 package tests;
 
 import client.ProductClient;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import utils.TestContext;
+import validator.UserValidator;
 
 public class DeleteUserTest {
 
@@ -21,11 +20,6 @@ public class DeleteUserTest {
 
         System.out.println(response.asPrettyString());
 
-        Assert.assertEquals(response.getStatusCode(), 200);
-
-        JsonPath json = response.jsonPath();
-
-        Assert.assertEquals(json.getString("responseCode"), "200");
-        Assert.assertTrue(json.getString("message").contains("Account deleted"));
+        UserValidator.validateDeleteUser(response);
     }
 }

@@ -1,8 +1,12 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
 import utils.WaitUtils;
+import utils.AdsHandler;
 import utils.ConfigReader;
 
 public class SignupPage {
@@ -10,7 +14,7 @@ public class SignupPage {
     WebDriver driver;
     WaitUtils wait;
 
-    //locators
+    // locators
 
     By name = By.name("name");
     By email = By.xpath("//input[@data-qa='signup-email']");
@@ -28,13 +32,12 @@ public class SignupPage {
     By createAccount = By.xpath("//button[@data-qa='create-account']");
     By successMsg = By.xpath("//b[text()='Account Created!']");
 
-
     public SignupPage(WebDriver driver) {
         this.driver = driver;
         wait = new WaitUtils(driver);
     }
 
-    //methods
+    // methods
 
     public void enterName(String userName) {
         wait.waitForElement(name).sendKeys(userName);
@@ -62,7 +65,11 @@ public class SignupPage {
     }
 
     public void clickCreateAccount() {
-        wait.waitForElement(createAccount).click();
+        AdsHandler.removeAds(driver);
+
+        WebElement btn = wait.waitForElement(createAccount);
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", btn);
     }
 
     public boolean isAccountCreated() {

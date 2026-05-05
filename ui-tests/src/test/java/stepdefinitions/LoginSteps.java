@@ -1,4 +1,5 @@
 package stepdefinitions;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import io.cucumber.java.en.Given;
@@ -11,6 +12,7 @@ import org.testng.Assert;
 import driver.DriverFactory;
 import pages.LoginPage;
 import utils.ConfigReader;
+import utils.TestContext;
 
 public class LoginSteps {
     private static final Logger logger = LogManager.getLogger(LoginSteps.class);
@@ -28,7 +30,11 @@ public class LoginSteps {
     @When("User enters valid credentials")
     public void enter_valid_credentials() {
 
-        loginPage.enterEmail(ConfigReader.get("email"));
+        String email = (TestContext.getEmail() != null)
+                ? TestContext.getEmail()
+                : ConfigReader.get("email");
+
+        loginPage.enterEmail(email);
         loginPage.enterPassword(ConfigReader.get("password"));
         logger.info("Entered valid login credentials");
     }

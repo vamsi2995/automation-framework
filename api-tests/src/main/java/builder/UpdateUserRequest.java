@@ -1,20 +1,22 @@
 package builder;
 
-import utils.ConfigReader;
-import utils.TestContext;
+// import utils.ConfigReader;
+// import utils.TestContext;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class UpdateUserRequest {
 
-    public static Map<String, String> build() {
+    public static Map<String, String> build(String email,String password) {
 
         Map<String, String> body = new HashMap<>();
 
         body.put("name", "UpdatedUser");
-        body.put("email", TestContext.getEmail());  // same user
-        body.put("password", TestContext.getPassword());
+        // body.put("email", TestContext.getEmail());  // same user
+        // body.put("password", TestContext.getPassword());
+        body.put("email", email);
+        body.put("password", password);
 
         body.put("firstname", "Updated");
         body.put("lastname", "User");

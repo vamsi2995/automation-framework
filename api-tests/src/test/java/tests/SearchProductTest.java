@@ -6,6 +6,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import validator.ProductValidator;
 
 import java.util.Map;
 
@@ -22,11 +23,6 @@ public class SearchProductTest {
 
         System.out.println(response.asPrettyString());
 
-        Assert.assertEquals(response.getStatusCode(), 200);
-
-        JsonPath json = response.jsonPath();
-
-        Assert.assertEquals(json.getString("responseCode"), "200");
-        Assert.assertTrue(json.getList("products").size() > 0);
+        ProductValidator.validateSearchProduct(response);
     }
 }

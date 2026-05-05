@@ -16,13 +16,16 @@ public class NegativeTests {
         ProductClient client = new ProductClient();
 
         // First create user
-        Map<String, String> body = CreateUserRequest.build();
+        String email = "test" + System.currentTimeMillis() + "@mail.com";
+        Map<String, String> body = CreateUserRequest.build(email);
         client.createUser(body);
 
         // Try creating again with same email
         Response response = client.createUser(body);
 
         System.out.println(response.asPrettyString());
+
+        Assert.assertEquals(response.getStatusCode(), 200);
 
         JsonPath json = response.jsonPath();
 

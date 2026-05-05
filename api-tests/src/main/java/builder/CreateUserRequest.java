@@ -1,18 +1,18 @@
 package builder;
 
 import utils.ConfigReader;
-import utils.TestContext;
+//import utils.TestContext;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class CreateUserRequest {
 
-    public static Map<String, String> build() {
+    public static Map<String, String> build(String email) {
 
         Map<String, String> body = new HashMap<>();
 
-        String email = "test" + System.currentTimeMillis() + "@mail.com";
+        //String email = "test" + System.currentTimeMillis() + "@mail.com";
 
         body.put("name", ConfigReader.get("name"));
         body.put("email", email);  
@@ -33,8 +33,8 @@ public class CreateUserRequest {
         body.put("city", ConfigReader.get("city"));
         body.put("mobile_number", ConfigReader.get("mobile"));
 
-        TestContext.setEmail(email);
-        TestContext.setPassword(ConfigReader.get("password"));
+        //TestContext.setEmail(email);
+        //TestContext.setPassword(ConfigReader.get("password"));
 
         return body;
     }

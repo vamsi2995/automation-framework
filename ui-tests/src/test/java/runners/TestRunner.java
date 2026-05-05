@@ -7,7 +7,8 @@ import io.cucumber.testng.CucumberOptions;
         features = {
                 "src/test/resources/features/signup.feature",
                 "src/test/resources/features/login.feature",
-                "src/test/resources/features/cart.feature"
+                "src/test/resources/features/cart.feature",
+                "src/test/resources/features/hybrid.feature"
         },
         glue = "stepdefinitions",
         plugin = {

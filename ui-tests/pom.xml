@@ -111,6 +111,11 @@
             <version>5.1.2</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.framework</groupId>
+            <artifactId>api-tests</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
     </dependencies>
 
